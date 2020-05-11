@@ -18,6 +18,8 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use('/userstory', userstoryRouter);
+
 app.listen(PORT, () => {
     console.log('Server started', PORT);
 })
