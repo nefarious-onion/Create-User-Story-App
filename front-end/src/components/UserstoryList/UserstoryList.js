@@ -1,14 +1,15 @@
 import React from 'react';
 import Userstory from '../Userstory/Userstory';
+import './UserstoryList.css';
 
-const UserstoryList = ({stories}) => {
+const UserstoryList = ({ stories }) => {
 
-    const storyList = stories.map(story => <Userstory key={story._id} title={story.title}/>)
+    const storyList = stories.map(epic => <Userstory key={epic._id} title={epic.title} />)
 
     return (
-        <>
-        {storyList}
-        </>
+        <div className='list-container'>
+            {storyList}
+        </div>
     );
 }
 
