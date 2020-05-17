@@ -1,10 +1,9 @@
 import React from 'react';
 
-const Userstory = () => {
+const Userstory = ({title}) => {
     return (
         <div>
-            <h3>Userstory</h3>
-            <p>This is a userstory</p>
+            <p>{title}</p>
         </div>
     );
 }
