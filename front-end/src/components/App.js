@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { getStories } from '../services/userstory.service';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import { getEpics } from '../services/app.service';
 import UserstoryList from './UserstoryList/UserstoryList';
+import Sidebar from './Sidebar/Sidebar';
 
 const App = () => {
-    const [stories, setStories] = useState([]);
+    // const [stories, setStories] = useState([]);
+    const [epics, setEpics] = useState([]);
 
     // const fetchStories = async () => {
     //     const _stories = await getStories();
@@ -11,14 +19,17 @@ const App = () => {
     // }
 
     useEffect(() => {
-        getStories()
-            .then(stories => setStories(stories))
+        getEpics()
+            .then(epics => setEpics(epics))
     }, []);
 
     return (
-        <div>
-            <UserstoryList stories={stories}/>
-        </div>
+        <Router>
+            <div className='app-container'>
+                <Sidebar epics={epics} />
+                {/* <UserstoryList stories={stories}/> */}
+            </div>
+        </Router>
     );
 }
 
