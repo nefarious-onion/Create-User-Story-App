@@ -1,5 +1,6 @@
 const express = require('express');
 const userstoryRouter = require('./api/userstory/userstory.router');
+const epicRouter = require('./api/epic/epic.router');
 const dbService = require('./api/db/db.service');
 
 const PORT = 8000;
@@ -18,7 +19,9 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/userstory', userstoryRouter);
+app.use('/epic', epicRouter);
+app.use('/epic/:id/userstory', userstoryRouter);
+
 
 app.listen(PORT, () => {
     console.log('Server started', PORT);
