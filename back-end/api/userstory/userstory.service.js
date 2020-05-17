@@ -1,17 +1,18 @@
 // @ts-check
 
 const Userstory = require('./userstory.model');
+const epicService = require('../epic/epic.service');
 
-const getStories = () => {
-    return new Promise((resolve, reject) => {
-        Userstory.find((error, stories) => {
-            if(error) {
-                reject(error);
-            } else {
-                resolve(stories);
-            }
-        })
-    })
+const getStories = async (epicId) => {
+        try {
+            const foundEpic =  await epicService.getEpic(epicId);
+            console.log('found epic:', foundEpic);
+            return foundEpic.stories;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+       
 }
 
 const getStory = id => {
@@ -32,10 +33,17 @@ const getStory = id => {
     }
 }
 
-const createStory = content => {
+const createStory = async (epicId, content) => {
+    console.log('epicid: ',epicId, content);
     try {
         const story = new Userstory(content);
-        return story.save();
+        await story.save();
+        
+        const foundEpic = await epicService.getEpic(epicId);
+        foundEpic.stories.push(story);
+        await foundEpic.save();
+
+        return story;
     } catch (error) {
         console.log(error);
         return false;

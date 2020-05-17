@@ -1,16 +1,28 @@
 // @ts-check
 
 const express = require('express');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const userstoryService = require('./userstory.service');
+//response ok
+//response fail
+//parametri res/koodi/message
 
 //get all userstories
 router.get('/', async (req, res) => {
+    const epicId = String(req.params.id);
     console.log('get all userstories');
 
     try {
-        const stories = await userstoryService.getStories();
+        const stories = await userstoryService.getStories(epicId);
+       if (stories !== false) {
         res.json(stories);
+       } else {
+           res
+            .status(404)
+            .json({
+                message: "Stories not found"
+            })
+       }  
     } catch (error) {
         console.log(error);
         res
@@ -23,8 +35,8 @@ router.get('/', async (req, res) => {
 })
 
 //get one userstory
-router.get('/:id', async (req, res) => {
-    const id = String(req.params.id);
+router.get('/:story_id', async (req, res) => {
+    const id = String(req.params.story_id);
     console.log(`get one userstory with id ${id}`);
     try {
         const story = await userstoryService.getStory(id);
@@ -52,24 +64,25 @@ router.get('/:id', async (req, res) => {
 
 //create userstory
 router.post('/', async (req, res) => {
-    console.log('create new userstory');
+    const epicId = String(req.params.id);
     const { body } = req;
+    console.log('create new userstory');
     
     try {
-        const newStory = await userstoryService.createStory(body);
+        const newStory = await userstoryService.createStory(epicId, body);
 
-    if (newStory !== false) {
-        console.log('new userstory created ', newStory);
-        res
-            .status(201)
-            .json(newStory);
-    } else {
-        res
-            .status(404)
-            .json({
-                message: "Story not created"
-            })
-    }
+        if (newStory !== false) {
+            console.log('new userstory created ', newStory);
+            res
+                .status(201)
+                .json(newStory);
+        } else {
+            res
+                .status(404)
+                .json({
+                    message: "Story not created"
+                })
+        }
     } catch (error) {
         console.log(error);
         res
@@ -81,8 +94,8 @@ router.post('/', async (req, res) => {
     
 })
 //update a userstory
-router.patch('/:id', async (req, res) => {
-    const id = String(req.params.id);
+router.patch('/:story_id', async (req, res) => {
+    const id = String(req.params.story_id);
     console.log(`update userstory with the id of ${id}`);
     const { body } = req;
 
@@ -110,8 +123,8 @@ router.patch('/:id', async (req, res) => {
 })
 
 //delete userstory
-router.delete('/:id', async (req, res) => {
-    const id = String(req.params.id);
+router.delete('/:story_id', async (req, res) => {
+    const id = String(req.params.story_id);
     console.log(`delete userstory with id of ${id}`);
 
     try {
