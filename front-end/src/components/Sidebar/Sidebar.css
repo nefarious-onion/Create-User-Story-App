@@ -1,0 +1,11 @@
+.sidebar-container {
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.sidebar__list-item {
+    text-decoration: none;
+    color: black;
+}
