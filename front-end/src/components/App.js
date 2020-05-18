@@ -5,18 +5,36 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { getEpics } from '../services/app.service';
+import { getEpics, createEpic } from '../services/app.service';
 import UserstoryList from './UserstoryList/UserstoryList';
 import Sidebar from './Sidebar/Sidebar';
+import Topnav from './Topnav/Topnav';
+import CreateStoryForm from './CreateStoryForm/CreateStoryForm';
+import LandingView from './LandingView/LandingView';
+import EpicView from './Epicview/EpicView';
 
 const App = () => {
     // const [stories, setStories] = useState([]);
     const [epics, setEpics] = useState([]);
+    const [epicName, setEpicName] = useState();
 
     // const fetchStories = async () => {
     //     const _stories = await getStories();
     //     setStories(_stories);
     // }
+    const fetchEpics = async () => {
+        const _epics = await getEpics();
+        setEpics(_epics)
+    }
+
+    const onEpicCreate = async (newEpic) => {
+        console.log('create new epic', newEpic);
+
+        await createEpic(newEpic);
+        fetchEpics();
+    }
+
+    const onEpicLoad = epic => setEpicName(epic.title);
 
     useEffect(() => {
         getEpics()
@@ -26,8 +44,17 @@ const App = () => {
     return (
         <Router>
             <div className='app-container'>
-                <Sidebar epics={epics} />
-                {/* <UserstoryList stories={stories}/> */}
+                <Topnav title={epicName} />
+                <Sidebar epics={epics} onEpicCreate={onEpicCreate} />
+                <Switch>
+                    <Route path='/' exact >
+                        <LandingView onEpicCreate={onEpicCreate} />
+                    </Route>
+                    <Route path='/epic/:epicId'>
+                        <EpicView onEpicLoad={onEpicLoad} />
+                    </Route>
+
+                </Switch>
             </div>
         </Router>
     );
