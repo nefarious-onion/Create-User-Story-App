@@ -5,7 +5,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { getEpics, createEpic } from '../services/api.service';
+import { getEpics, createEpic, deleteEpic } from '../services/api.service';
 import Sidebar from './Sidebar/Sidebar';
 import Topnav from './Topnav/Topnav';
 import LandingView from './LandingView/LandingView';
@@ -13,14 +13,9 @@ import EpicView from './Epicview/EpicView';
 import './App.css';
 
 const App = () => {
-    // const [stories, setStories] = useState([]);
     const [epics, setEpics] = useState([]);
     const [epicName, setEpicName] = useState();
 
-    // const fetchStories = async () => {
-    //     const _stories = await getStories();
-    //     setStories(_stories);
-    // }
     const fetchEpics = async () => {
         const _epics = await getEpics();
         setEpics(_epics)
@@ -34,6 +29,12 @@ const App = () => {
     }
 
     const onEpicLoad = epic => setEpicName(epic.title);
+
+    const onEpicDelete = async (id) => {
+        await deleteEpic(id);
+        setEpicName("");
+        fetchEpics();
+    }
 
     useEffect(() => {
         getEpics()
@@ -51,7 +52,7 @@ const App = () => {
                             <LandingView onEpicCreate={onEpicCreate} />
                         </Route>
                         <Route path='/epic/:epicId'>
-                            <EpicView onEpicLoad={onEpicLoad} />
+                            <EpicView onEpicLoad={onEpicLoad} onEpicDelete={onEpicDelete} />
                         </Route>
                     </Switch>
                 </div>
