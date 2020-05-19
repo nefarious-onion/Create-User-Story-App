@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getEpic, createStory } from '../../services/app.service';
+import { getEpic, createStory } from '../../services/api.service';
 import UserstoryList from '../UserstoryList/UserstoryList';
 import CreateStoryForm from '../CreateStoryForm/CreateStoryForm';
 
