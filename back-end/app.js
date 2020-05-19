@@ -14,16 +14,6 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname,'../', 'front-end', 'build')));
 
-app.get('/ping', (req, res) => {
-    res.send('hello world');
-  });
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../', 'front-end', 'build', 'index.html'));
-});
-
-
-
 //allow chrome to do ajax call
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", FRONTEND_ORIGIN);
@@ -35,6 +25,13 @@ app.use((req, res, next) => {
 app.use('/epic', epicRouter);
 app.use('/epic/:id/userstory', userstoryRouter);
 
+app.get('/ping', (req, res) => {
+    res.send('hello world');
+  });
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../', 'front-end', 'build', 'index.html'));
+});
 
 app.listen(PORT, () => {
     console.log('Server started', PORT);
