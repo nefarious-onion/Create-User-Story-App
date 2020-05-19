@@ -22,8 +22,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/epic', epicRouter);
-app.use('/epic/:id/userstory', userstoryRouter);
+app.use('/api/epic', epicRouter);
+app.use('/api/epic/:id/userstory', userstoryRouter);
 
 app.get('/ping', (req, res) => {
     res.send('hello world');

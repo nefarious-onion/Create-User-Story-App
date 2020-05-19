@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EPIC_URL = '/epic/';
+const EPIC_URL = '/api/epic/';
 
 export const getEpics = () => axios.get(EPIC_URL).then(response => response.data);
 
