@@ -1,3 +1,7 @@
 .list-container {
     background-color: #C1DABD;
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: .5rem;
+    margin: .5rem o;
 }
