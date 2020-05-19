@@ -1,0 +1,25 @@
+.epicview__title {
+    padding: .5rem;
+}
+
+.epicview-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+.userstoryview-container {
+    max-width: 300px;
+}
+.editview-container {
+    max-width: 200px;
+} 
+
+.delete-button {
+    display: inline-block;
+}
+.delete-button:hover {
+    background-color: crimson;
+    color: white;
+}
