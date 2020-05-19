@@ -21,7 +21,7 @@ const CreateEpicForm = ({ onEpicCreate }) => {
                     <label>Name</label>
                     <input type='text' name='name' value={name} onChange={event => setName(event.target.value)} />
                 </div>
-                <input type='submit' value='Save Epic' />
+                <input type='submit' value='Save Epic' className='button submit-epic-button' />
             </form>
 
 

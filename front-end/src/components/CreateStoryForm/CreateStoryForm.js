@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 
 const CreateStoryForm = ({ onStoryCreate }) => {
     //const [userInput, setUserInput] = useState("");
@@ -36,7 +36,7 @@ const CreateStoryForm = ({ onStoryCreate }) => {
                     <label>so that</label>
                     <input type='text' name='storyValue' value={storyValue} onChange={event => setStoryValue(event.target.value)} required/>
                 </div>
-                <input type='submit' value='Add userstory'/>
+                <input type='submit' value='Add userstory' className='button submit-userstory-button'/>
             </form>
 
         </div>
