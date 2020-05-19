@@ -1,5 +1,5 @@
 .list-container {
-    background-color: #C1DABD;
+    /* background-color: #C1DABD; */
     display: grid;
     grid-template-rows: auto;
     grid-gap: .5rem;
