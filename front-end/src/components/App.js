@@ -5,13 +5,12 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { getEpics, createEpic } from '../services/app.service';
-import UserstoryList from './UserstoryList/UserstoryList';
+import { getEpics, createEpic } from '../services/api.service';
 import Sidebar from './Sidebar/Sidebar';
 import Topnav from './Topnav/Topnav';
-import CreateStoryForm from './CreateStoryForm/CreateStoryForm';
 import LandingView from './LandingView/LandingView';
 import EpicView from './Epicview/EpicView';
+import './App.css';
 
 const App = () => {
     // const [stories, setStories] = useState([]);
@@ -45,16 +44,17 @@ const App = () => {
         <Router>
             <div className='app-container'>
                 <Topnav title={epicName} />
-                <Sidebar epics={epics} onEpicCreate={onEpicCreate} />
-                <Switch>
-                    <Route path='/' exact >
-                        <LandingView onEpicCreate={onEpicCreate} />
-                    </Route>
-                    <Route path='/epic/:epicId'>
-                        <EpicView onEpicLoad={onEpicLoad} />
-                    </Route>
-
-                </Switch>
+                <div className='main-content'>
+                    <Sidebar className='sidebar' epics={epics} onEpicCreate={onEpicCreate} />
+                    <Switch>
+                        <Route path='/' exact >
+                            <LandingView onEpicCreate={onEpicCreate} />
+                        </Route>
+                        <Route path='/epic/:epicId'>
+                            <EpicView onEpicLoad={onEpicLoad} />
+                        </Route>
+                    </Switch>
+                </div>
             </div>
         </Router>
     );

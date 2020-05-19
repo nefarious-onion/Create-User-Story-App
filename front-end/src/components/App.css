@@ -1,0 +1,17 @@
+.app-container {
+
+}
+.main-content {
+    display: flex;
+}
+
+.button {
+    padding: 0.3em 1em;
+    border: 0.1em solid #000;
+    border-radius: 0.12em;
+    text-align: center;
+
+}
+.button:hover {
+    border: .3em solid #000;
+}
