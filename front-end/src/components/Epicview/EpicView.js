@@ -7,6 +7,7 @@ import CreateStoryForm from '../CreateStoryForm/CreateStoryForm';
 const EpicView = ({ onEpicLoad }) => {
     const [epic, setEpic] = useState();
     const [stories, setStories] = useState([]);
+    const [epicTitle, setEpicTitle] = useState("");
 
     let { epicId } = useParams();
 
@@ -14,6 +15,7 @@ const EpicView = ({ onEpicLoad }) => {
         const _epic = await getEpic(epicId);
         setEpic(_epic);
         setStories(_epic.stories);
+        setEpicTitle(epic.title);
     }
     const onStoryCreate = async (newstory) => {
         console.log('create new story', newstory);
@@ -26,12 +28,16 @@ const EpicView = ({ onEpicLoad }) => {
         getEpic(epicId).then(epic => {
             setEpic(epic);
             setStories(epic.stories);
+            setEpicTitle(epic.title);
             onEpicLoad(epic);
         })
     }, [epicId]);
 
     return (
-        <div>
+        <div className='epicview-container'>
+            <div className='epicview__title'>
+            <p>Create userstories for {epicTitle} </p>
+            </div>
             <CreateStoryForm onStoryCreate={onStoryCreate} />
             <UserstoryList stories={stories} />
         </div>
