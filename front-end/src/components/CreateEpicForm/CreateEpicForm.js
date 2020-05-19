@@ -16,9 +16,8 @@ const CreateEpicForm = ({ onEpicCreate }) => {
     return (
         <div className='form-container'>
             <form className='epic-form' onSubmit={onSubmit} >
-                <h3>Create new Epic:</h3>
+                <h4>Create new Epic:</h4>
                 <div className='form__input-field'>
-                    <label>Name</label>
                     <input type='text' name='name' value={name} onChange={event => setName(event.target.value)} />
                 </div>
                 <input type='submit' value='Save Epic' className='button submit-epic-button' />
