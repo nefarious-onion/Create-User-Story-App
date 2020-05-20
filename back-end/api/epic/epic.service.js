@@ -1,7 +1,7 @@
 // @ts-check
 
 const Epic = require('./epic.model');
-const Userstory = require('../userstory/userstory.model');
+//const Userstory = require('../userstory/userstory.model');
 
 const getEpics = () => {
     return new Promise((resolve, reject) => {

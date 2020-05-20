@@ -3,9 +3,6 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 const userstoryService = require('./userstory.service');
-//response ok
-//response fail
-//parametri res/koodi/message
 
 //get all userstories
 router.get('/', async (req, res) => {

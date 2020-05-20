@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "install": "cd back-end && npm install",
+    "install:backend": "cd back-end && npm install && cd ..",
+    "install:frontend": "cd front-end && npm install && npm run build && cd ..",
+    "install": "npm run install:backend && npm run install:frontend",
     "start": "cd back-end && node app.js"
   },
   "keywords": [],

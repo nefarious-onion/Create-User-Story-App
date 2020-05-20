@@ -70,10 +70,6 @@ const EpicView = ({ onEpicLoad, onEpicDelete }) => {
 
         <div className='epicview-container'>
             <div className='userstoryview-container'>
-                {/* <div className='epicview__title'>
-                    <p>Create userstories for {epicTitle} </p>
-                    <button className='button delete-button' >Delete epic {epicTitle}</button>
-                </div> */}
                 <button className='button delete-button' onClick={onDeleteClick} >Delete epic {epicTitle}</button>
             <CreateStoryForm onStoryCreate={onStoryCreate} />
             <UserstoryList stories={stories} onStoryClick={onStoryClick} />
