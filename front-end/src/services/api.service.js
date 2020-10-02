@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { baseUrl } from '../config';
 
-const EPIC_URL = '/api/epic/';
+const EPIC_URL = baseUrl +  'api/epic/';
 
 export const getEpics = () => axios.get(EPIC_URL).then(response => response.data);
 
@@ -23,7 +24,7 @@ export const deleteEpic = async (id) => {
     } catch (error) {
         console.log('epic not deleted', error);
     }
-    
+      
 }
 
 export const createStory = async (newstory, epicId) => {
