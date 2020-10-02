@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './CreateStoryForm.css';
 
 const CreateStoryForm = ({ onStoryCreate }) => {
@@ -8,6 +8,14 @@ const CreateStoryForm = ({ onStoryCreate }) => {
     const [storyValue, setStoryValue] = useState("");
 
     const inputElement = useRef(null);
+
+    useEffect(() => {
+        console.log('does this happen?')
+        setTimeout(() => {
+            console.log('this is timeout');
+            inputElement.current.focus();
+        }, 400);
+    }, []);
     
     const onSubmit = event => {
         event.preventDefault();
