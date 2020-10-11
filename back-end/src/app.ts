@@ -15,23 +15,8 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 
-// if (isDev) {
-//   app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", FRONTEND_ORIGIN);
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-//     next();
-//   });
-// } else {
-//   app.use(express.static(path.join(__dirname, '../', 'front-end', 'build')));
-
-//   app.get('/*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../', 'front-end', 'build', 'index.html'));
-//   });
-
-// }
 app.use('/api/epic', epicRouter);
-app.use('/api/epic/:id/userstory', userstoryRouter);
+app.use('/api/userstory', userstoryRouter);
 app.get('/ping', (req, res) => {
   res.send('hello world');
 });
