@@ -9,8 +9,8 @@ router.get('/', async (req, res) => {
 })
 
 //get one userstory
-router.get('/:story_id', async (req, res) => {
-    const id = req.params.story_id
+router.get('/:id', async (req, res) => {
+    const id = req.params.id
     const story = await userstoryService.getStory(id);
     if (story) {
         res.json(story);
@@ -21,10 +21,9 @@ router.get('/:story_id', async (req, res) => {
 
 //create userstory
 router.post('/', async (req, res) => {
-    const epicId = req.params.id;
     const { body } = req;
 
-    const newStory = await userstoryService.createStory(epicId, body);
+    const newStory = await userstoryService.createStory(body);
     res
         .status(201)
         .json(newStory);

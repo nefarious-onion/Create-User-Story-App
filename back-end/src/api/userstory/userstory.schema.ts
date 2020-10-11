@@ -1,13 +1,19 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IEpic } from '../epic/epic.schema';
 
 export interface IUserstory extends Document {
     title: string;
+    epic: IEpic
 }
 
 const userstorySchema: Schema = new mongoose.Schema({
     title: {
         type: String,
         required: true
+    },
+    epic: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Epic"
     }
 })
 
