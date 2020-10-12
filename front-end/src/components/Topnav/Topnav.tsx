@@ -1,8 +1,12 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import './Topnav.css';
 
-const Topnav = ({title}) => {
+interface TopnavProps {
+    title: string
+}
+
+const Topnav: React.FunctionComponent<TopnavProps> = ({ title }) => {
     return (
         <div className='topnav-container'>
             <Link to='/' className='link'><h2 className='logo'>Create Userstories</h2></Link>

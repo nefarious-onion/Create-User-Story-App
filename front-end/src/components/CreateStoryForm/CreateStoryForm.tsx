@@ -1,33 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Userstory } from '../../services/api.interface';
 import './CreateStoryForm.css';
 
-const CreateStoryForm = ({ onStoryCreate }) => {
-    //const [userInput, setUserInput] = useState("");
-    const [storyUser, setStoryUser] = useState("");
-    const [storyWant, setStoryWant] = useState("");
-    const [storyValue, setStoryValue] = useState("");
+interface CreateStoryFormProps {
+    onStoryCreate: (title: Userstory['title']) => void
+}
 
-    const inputElement = useRef(null);
+const CreateStoryForm: React.FunctionComponent<CreateStoryFormProps> = ({ onStoryCreate }) => {
+    //const [userInput, setUserInput] = useState("");
+    const [storyUser, setStoryUser] = useState('');
+    const [storyWant, setStoryWant] = useState('');
+    const [storyValue, setStoryValue] = useState('');
+
+    const inputElement = React.useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         console.log('does this happen?')
         setTimeout(() => {
             console.log('this is timeout');
-            inputElement.current.focus();
+            if (inputElement.current) {
+                inputElement.current.focus();
+            } 
         }, 400);
     }, []);
     
-    const onSubmit = event => {
+    const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        const userstory = `As a ${storyUser}, I want to ${storyWant}, so that ${storyValue}`;
-        console.log(userstory);
+        const title = `As a ${storyUser}, I want to ${storyWant}, so that ${storyValue}`;
+        console.log(title);
 
-        onStoryCreate(userstory);
-        setStoryUser("");
-        setStoryWant("");
-        setStoryValue("");
-        inputElement.current.focus();
+        onStoryCreate(title);
+        setStoryUser('');
+        setStoryWant('');
+        setStoryValue('');
+        if (inputElement.current) {
+            inputElement.current.focus();
+        } 
     }
 
     return (

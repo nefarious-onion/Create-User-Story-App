@@ -3,11 +3,14 @@ import React from 'react';
 import CreateEpicForm from '../CreateEpicForm/CreateEpicForm';
 import './Sidebar.css';
 import EpicList from '../EpicList/EpicList';
+import { Epic, EpicData } from '../../services/api.interface';
 
-const Sidebar = ({epics, onEpicCreate }) => {
+interface SideBarProps {
+    epics: Epic[];
+    onEpicCreate: (title: EpicData['title']) => void
+}
+const Sidebar: React.FunctionComponent<SideBarProps> = ({epics, onEpicCreate }) => {
 
-
-//const epicList = epics.map(epic => <Link to={`/epic/${epic._id}`} className='sidebar__list-item' key={epic._id}>{epic.title}</Link>)
     return (
         <div className='sidebar-container'>
             <CreateEpicForm onEpicCreate={onEpicCreate}/>

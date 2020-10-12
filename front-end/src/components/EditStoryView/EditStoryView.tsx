@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { Userstory } from '../../services/api.interface';
 import EditStoryForm from '../EditStoryForm/EditStoryForm';
 
-const EditStoryView = ({ story, onStoryDelete }) => {
+interface EditStoryViewProps {
+    story: Userstory;
+    onStoryDelete: (storyId: Userstory['id']) => void
+}
+
+const EditStoryView: React.FunctionComponent<EditStoryViewProps> = ({ story, onStoryDelete }) => {
    
-    let userstory = "";
+    let userstory = '';
 
     if (story) {
         userstory = story.title;
     }
 
     const onClick = () => {
-        onStoryDelete();
+        onStoryDelete(story.id);
     }
 
     return (

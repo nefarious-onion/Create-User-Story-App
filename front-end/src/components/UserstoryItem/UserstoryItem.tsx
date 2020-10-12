@@ -1,7 +1,14 @@
 import React from 'react';
 import './Userstory.css';
 
-const Userstory = ({title, onStoryClick, id }) => {
+interface UserstoryProps {
+    title: string;
+    id: string;
+    onStoryClick: (id: string) => void;
+}
+
+const UserstoryItem: React.FunctionComponent<UserstoryProps> = ({ title, onStoryClick, id }) => {
+
     return (
         <div className='list__item' onClick={() => {
             console.log(id);
@@ -13,4 +20,4 @@ const Userstory = ({title, onStoryClick, id }) => {
     );
 }
 
-export default Userstory;
+export default UserstoryItem;

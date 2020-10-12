@@ -5,47 +5,68 @@ import UserstoryList from '../UserstoryList/UserstoryList';
 import CreateStoryForm from '../CreateStoryForm/CreateStoryForm';
 import EditStoryView from '../EditStoryView/EditStoryView';
 import './EpicView.css';
+import { Epic, Userstory, UserstoryData } from '../../services/api.interface';
 
-const EpicView = ({ onEpicLoad, onEpicDelete }) => {
-    const [epic, setEpic] = useState();
-    const [stories, setStories] = useState([]);
-    const [epicTitle, setEpicTitle] = useState("");
+interface EpicViewProps {
+    onEpicLoad: (epic: Epic) => void;
+    onEpicDelete: (epicId: Epic['id']) => void;
+}
+type EpicRouteParams = { epicId: Epic['id'] }
+
+const EpicView: React.FunctionComponent<EpicViewProps> = ({ onEpicLoad, onEpicDelete }) => {
+    let { epicId } = useParams<EpicRouteParams>();
+
+    const [epic, setEpic] = useState<Epic | null>(null);
+    const [stories, setStories] = useState<Userstory[]>([]);
+    const [epicTitle, setEpicTitle] = useState('');
     const [editVisible, setEditVisible] = useState(false);
-    const [storyId, setStoryId] = useState("");
-    const [story, setStory] = useState("");
+    const [storyId, setStoryId] = useState<Userstory['id']>('');
+    const [story, setStory] = useState<Userstory | null>(null);
+    const [error, setError] = useState<Error | null>(null)
 
-    let { epicId } = useParams();
-
+    //! Olisko epicTitle parempi hanskata joko useEffectillä tai ottaa se tosta samasta datasta ku kaikki muukin?
     const fetchStories = async () => {
         const _epic = await getEpic(epicId);
-        setEpic(_epic);
-        setStories(_epic.stories);
-        setEpicTitle(epic.title);
+        if (_epic) {
+            setEpic(_epic);
+            setStories(_epic.stories);
+            setEpicTitle(_epic.title);
+        }
     }
-    const onStoryCreate = async (newstory) => {
-        console.log('create new story', newstory);
-
-        await createStory(newstory, epicId);
-        fetchStories();
+    const onStoryCreate = async (title: Userstory['title']) => {
+        const newStory = {
+            title,
+            epic: epicId
+        }
+        try {
+            await createStory(newStory);
+            fetchStories();
+        } catch (error) {
+            setError(error)
+        }      
     }
 
-    const onStoryClick = async (id) => {
+    const onStoryClick = async (id: Userstory['id']) => {
         setEditVisible(true);
         setStoryId(id);
     }
 
     const onStoryDelete = async () => {
-        await deleteStory(epicId, storyId);
-        setStoryId("");
-        setStory("");
-        setEditVisible(false);
-        fetchStories();
+        try {
+            await deleteStory(storyId);
+            setStoryId('');
+            setStory(null);
+            setEditVisible(false);
+            fetchStories();
+        } catch (error) {
+            setError(error)
+        }
     }
-    const onDeleteClick = (event) => {
-        if (window.confirm('Are you sure you want to delete this epic?'))  {
+    const onDeleteClick = () => {
+        if (window.confirm('Are you sure you want to delete this epic?')) {
             onEpicDelete(epicId);
-            setEpic("")
-            setEpicTitle("");
+            setEpic(null);
+            setEpicTitle('');
             setStories([]);
         }
     }
@@ -56,32 +77,35 @@ const EpicView = ({ onEpicLoad, onEpicDelete }) => {
             setStories(epic.stories);
             setEpicTitle(epic.title);
             onEpicLoad(epic);
-            setStoryId("");
+            setStoryId('');
         })
+        .catch(error => setError(error))
     }, [epicId]);
 
     useEffect(() => {
-        getStory(epicId, storyId).then(userstory => {
-            setStory(userstory);
-        })
-    }, [storyId]);
+        getStory(storyId)
+            .then(userstory => {
+                setStory(userstory);
+            })
+        .catch(error => setError(error))
+    }, [ storyId ]);
 
     return (
 
         <div className='epicview-container'>
             <div className='userstoryview-container'>
                 <button className='button delete-button' onClick={onDeleteClick} >Delete epic {epicTitle}</button>
-            <CreateStoryForm onStoryCreate={onStoryCreate} />
-            <UserstoryList stories={stories} onStoryClick={onStoryClick} />
-        </div>
-        <div className='editview-container'>
-            {
-                story && (
-                    <EditStoryView story={story} onStoryDelete={onStoryDelete} />
-                )
-            }
-            {/* <EditStoryView editVisible={editVisible} storyId={storyId} epicId={epicId} onStoryDelete={onStoryDelete} /> */}
-        </div>
+                <CreateStoryForm onStoryCreate={onStoryCreate} />
+                <UserstoryList stories={stories} onStoryClick={onStoryClick} />
+            </div>
+            <div className='editview-container'>
+                {
+                    story && (
+                        <EditStoryView story={story} onStoryDelete={onStoryDelete} />
+                    )
+                }
+                {/* <EditStoryView editVisible={editVisible} storyId={storyId} epicId={epicId} onStoryDelete={onStoryDelete} /> */}
+            </div>
         </div >
     );
 }

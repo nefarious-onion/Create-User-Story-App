@@ -1,8 +1,13 @@
 import React from 'react';
 import CreateEpicForm from '../CreateEpicForm/CreateEpicForm';
+import { EpicData } from '../../services/api.interface';
 import './LandingView.css';
 
-const LandingView = ({ onEpicCreate }) => {
+interface LandingviewProps {
+    onEpicCreate: (title: EpicData['title']) => void
+}
+
+const LandingView: React.FunctionComponent<LandingviewProps> = ({ onEpicCreate }) => {
     return (
         <div className='landingview-container'>
             <h1>Welcome to Create User Stories App!</h1>
@@ -11,5 +16,4 @@ const LandingView = ({ onEpicCreate }) => {
         </div>
     );
 }
-
 export default LandingView;

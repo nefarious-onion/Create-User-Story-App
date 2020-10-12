@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 //services, interfaces
 import { getEpics, createEpic, deleteEpic } from '../services/api.service';
-import { Epic  } from '../services/api.interface';
+import { Epic, EpicData } from '../services/api.interface';
 //components
 import Sidebar from './Sidebar/Sidebar';
 import Topnav from './Topnav/Topnav';
@@ -16,32 +16,49 @@ import EpicView from './Epicview/EpicView';
 import './App.css';
 
 const App = () => {
-    const [epics, setEpics] = useState([]);
-    const [epicName, setEpicName] = useState<string>();
+    const [epics, setEpics] = useState<Epic[]>([]);
+    const [epicName, setEpicName] = useState('');
+    const [error, setError] = useState<Error | null >(null)
 
     const fetchEpics = async () => {
-        const _epics = await getEpics();
-        setEpics(_epics)
+        try {
+            const _epics = await getEpics();
+            setEpics(_epics)
+        } catch (error) {
+            setError(error)
+        }
     }
 
-    const onEpicCreate = async (newEpic: Epic) => {
-        console.log('create new epic', newEpic);
-
-        await createEpic(newEpic);
-        fetchEpics();
+    const onEpicCreate = async (epicTitle: EpicData['title']) => {
+        const newEpic = {
+            title: epicTitle
+        }
+        try {
+            await createEpic(newEpic);
+            console.log('create new epic', newEpic);
+            fetchEpics();
+        } catch (error) {
+            setError(error);
+        }
     }
 
     const onEpicLoad = (epic: Epic) => setEpicName(epic.title);
 
-    const onEpicDelete = async (id: string) => {
-        await deleteEpic(id);
-        setEpicName("");
-        fetchEpics();
+    const onEpicDelete = async (id: Epic['id']) => {
+        try {
+            await deleteEpic(id);
+            setEpicName("");
+            fetchEpics();
+        } catch (error) {
+            setError(error)
+        }
+
     }
 
     useEffect(() => {
         getEpics()
             .then(epics => setEpics(epics))
+            .catch(error => setError(error))
     }, []);
 
     return (

@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+import { EpicData } from '../../services/api.interface';
 
-const CreateEpicForm = ({ onEpicCreate }) => {
-    const [name, setName] = useState("");
+interface CreateEpicFormProps {
+    onEpicCreate: (title: EpicData['title']) => void
+}
 
-    const onSubmit = event => {
+const CreateEpicForm: React.FunctionComponent<CreateEpicFormProps> = ({ onEpicCreate }) => {
+    const [title, setTitle] = useState<EpicData['title']>('');
+
+    const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        const isNameValid = name.length > 2;
-        if (isNameValid) {
-            setName("");
-            onEpicCreate(name);
+        const isTitleValid = title && title.length > 2;
+        if (title && isTitleValid) {
+            onEpicCreate(title);
+            setTitle('');
         }
     }
 
@@ -18,12 +23,10 @@ const CreateEpicForm = ({ onEpicCreate }) => {
             <form className='epic-form' onSubmit={onSubmit} >
                 <h4>Create new Epic:</h4>
                 <div className='form__input-field'>
-                    <input type='text' name='name' value={name} onChange={event => setName(event.target.value)} />
+                    <input type='text' name='title' value={title} onChange={event => setTitle(event.target.value)} />
                 </div>
                 <input type='submit' value='Save Epic' className='button submit-epic-button' />
             </form>
-
-
         </div>
     );
 }
