@@ -1,62 +1,40 @@
 import axios from 'axios';
 import { baseUrl } from '../config';
-import { Epic, Userstory } from '../services/api.interface';
+import { EpicData, Epic, Userstory } from '../services/api.interface';
 const EPIC_URL = `${baseUrl}api/epic/`;
+const STORY_URL = `${baseUrl}api/userstory/`;
 
-export const getEpics = () => axios.get(EPIC_URL).then(response => response.data);
+export const getEpics = () => axios.get<Epic[]>(EPIC_URL).then(response => response.data);
 
-export const createEpic = async (epic: Epic) => {
-    try {
-        const response = await axios.post(EPIC_URL, epic);
-        const createdEpic = response.data;
-        console.log('epic created', createdEpic);
-    } catch (error) {
-        console.log('epic not created', error)
-    }
+export const createEpic = async (epic: EpicData) => {
+    const response = await axios.post<Epic>(EPIC_URL, epic);
+    const createdEpic = response.data;
+    console.log('epic created', createdEpic);
 }
 
-export const getEpic = (id: string )=> axios.get(EPIC_URL + id).then(response => response.data);
+export const getEpic = (id: Epic['id']) => axios.get<Epic>(`${EPIC_URL}${id}`).then(response => response.data);
 
-export const deleteEpic = async (id: string) => {
-    try {
-        await axios.delete(EPIC_URL + id);
-        console.log('epic deleted');
-    } catch (error) {
-        console.log('epic not deleted', error);
-    }
+export const deleteEpic = async (id: Epic['id']) => {
+    await axios.delete(EPIC_URL + id);
+    console.log('epic deleted');
 }
 
-export const createStory = async (userstory: Userstory, epicId: string) => {
-    const STORY_URL = EPIC_URL + `${epicId}/userstory`;
-    try {
-        const response = await axios.post(STORY_URL, userstory);
-        const savedStory = response.data;
-        console.log('story saved', savedStory);
-    } catch (error) {
-        console.log('story not saved', error);
-    }
+interface CreateUserstoryData {
+    title: string;
+    epic: Epic['id'];
+}
+export const createStory = async (userstory: CreateUserstoryData) => {
+    const response = await axios.post<Userstory>(STORY_URL, userstory);
+    const savedStory = response.data;
+    console.log('story saved', savedStory);
 }
 
-export const deleteStory = async (epicId, storyId) => {
-    const STORY_URL = EPIC_URL + `${epicId}/userstory/${storyId}`;
-
-    try {
-        const response = await axios.delete(STORY_URL);
-        console.log('story deleted', response.data);
-    } catch (error) {
-        console.log('story not deleted', error);
-    }
-
+export const deleteStory = async (storyId: Userstory['id']) => {
+    const response = await axios.delete(`STORY_URL${storyId}`);
+    console.log('story deleted', response.data);
 }
 
-export const getStory = async (epicId, storyId) => {
-    const STORY_URL = EPIC_URL + `${epicId}/userstory/${storyId}`;
-       
-        try {
-            const response = await axios.get(STORY_URL);
-            return response.data;
-        } catch (error) {
-            console.log(error);
-        }
-
+export const getStory = async (storyId: Userstory['id']) => {
+    const response = await axios.get<Userstory>(`STORY_URL${storyId}`);
+    return response.data;
 }
