@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "install:backend": "cd back-end && npm install && npm run build && cd ..",
     "install:frontend": "cd front-end && npm install && npm run build && cd ..",
