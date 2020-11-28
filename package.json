@@ -2,9 +2,9 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "scripts": {
     "install:backend": "cd back-end && npm install && npm run build && cd ..",
