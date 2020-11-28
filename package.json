@@ -9,7 +9,7 @@
   "scripts": {
     "install:backend": "cd back-end && npm install && npm run build && cd ..",
     "install:frontend": "cd front-end && npm install && npm run build && cd ..",
-    "install": "npm run install:backend && npm run install:frontend",
+    "postinstall": "npm run install:backend && npm run install:frontend",
     "start": "cd back-end && node build/app.js"
   },
   "keywords": [],
