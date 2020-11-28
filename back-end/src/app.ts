@@ -1,4 +1,4 @@
-import { PORT, MODE } from './utils/config';
+import { PORT, MODE, isDev } from './utils/config';
 import express from 'express';
 require('express-async-errors');
 import cors from 'cors';
@@ -11,7 +11,9 @@ import { mongoConnect } from './api/db/db.service';
 const app = express();
 mongoConnect()
 
-app.use(cors())
+if (isDev) {
+  app.use(cors())
+}
 app.use(express.static(path.join(__dirname, '../', '../', 'front-end', 'build')))
 app.use(express.json())
 
