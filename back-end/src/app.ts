@@ -2,7 +2,7 @@ import { PORT, MODE } from './utils/config';
 import express from 'express';
 require('express-async-errors');
 import cors from 'cors';
-//import path from 'path';
+import path from 'path';
 import { router as userstoryRouter } from './api/userstory/userstory.router';
 import { router as epicRouter } from './api/epic/epic.router';
 import { unknownEndpoint, errorHandler } from './utils/middleware';
@@ -12,7 +12,7 @@ const app = express();
 mongoConnect()
 
 app.use(cors())
-app.use(express.static('build'))
+app.use(express.static(path.join(__dirname, '../', 'frontend', 'build')))
 app.use(express.json())
 
 app.use('/api/epic', epicRouter);
