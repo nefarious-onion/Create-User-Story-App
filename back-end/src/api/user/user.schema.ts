@@ -8,6 +8,10 @@ export interface IUser extends Document {
     //projects: IProject[]
 }
 
+//! mongoose-unique-validator validation error is not catched by express-async-errors
+// non-unique username is not saved to db, so validator works, error is just unhandled
+//TODO FIND OUT WHY ERROR HANDLING IS NOT WORKING
+
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
