@@ -17,9 +17,8 @@ const createUser = async (userData: UserData) => {
         name,
         passwordHash,
     })
-    const savedUser = await user.save()
 
-    return savedUser;
+    return await user.save()
 }
 
 const getUsers = async () => {
