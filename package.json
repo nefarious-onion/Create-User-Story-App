@@ -10,7 +10,6 @@
     "install:backend": "cd back-end && npm install && npm run build && cd ..",
     "install:frontend": "cd front-end && npm install && npm run build && cd ..",
     "postinstall": "npm run install:backend && npm run install:frontend",
-    "prestart": "ls",
     "start": "cd back-end && node build/app.js"
   },
   "keywords": [],
