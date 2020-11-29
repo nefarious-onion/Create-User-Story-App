@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     //]
 })
 
-userSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' })
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
