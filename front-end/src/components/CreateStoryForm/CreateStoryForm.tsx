@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Userstory } from '../../services/api.interface';
 import './CreateStoryForm.css';
 
@@ -7,54 +7,77 @@ interface CreateStoryFormProps {
 }
 
 const CreateStoryForm: React.FunctionComponent<CreateStoryFormProps> = ({ onStoryCreate }) => {
-    //const [userInput, setUserInput] = useState("");
-    const [storyUser, setStoryUser] = useState('');
+    const [storyPersona, setStoryPersona] = useState('');
     const [storyWant, setStoryWant] = useState('');
     const [storyValue, setStoryValue] = useState('');
 
+    //declare a ref to DOM element (first input)
     const inputElement = React.useRef<HTMLInputElement>(null);
 
+    //set focus on input element so that user can start typing user stories
+    //! works when component re-renders but not on first render. why???
     useEffect(() => {
-        console.log('does this happen?')
-        setTimeout(() => {
-            console.log('this is timeout');
-            if (inputElement.current) {
-                inputElement.current.focus();
-            } 
-        }, 400);
+        if (inputElement.current) inputElement.current.focus();
     }, []);
-    
+
     const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        const title = `As a ${storyUser}, I want to ${storyWant}, so that ${storyValue}`;
-        console.log(title);
+        const title = `As a ${storyPersona}, I want to ${storyWant}, so that ${storyValue}`;
 
         onStoryCreate(title);
-        setStoryUser('');
+        setStoryPersona('');
         setStoryWant('');
         setStoryValue('');
-        if (inputElement.current) {
-            inputElement.current.focus();
-        } 
+        //focus back to top input element on submit
+        if (inputElement.current) inputElement.current.focus();
+
     }
 
     return (
-        <div className='form-container'>
-            <form className='userstory-form' onSubmit={onSubmit}>
-                <div className='form__input-field'>
-                    <label>As a</label>
-                    <input className='user__input' type='text' name='storyUser' value={storyUser} onChange={event => setStoryUser(event.target.value)} autoFocus ref={inputElement} required/>
+        <div className='row'>
+            <form className='col s12' onSubmit={onSubmit}>
+                <div className="row">
+                    <div className='input-field col s12'>
+                        <label htmlFor='storyUser'>As a</label>
+                        <input
+                            type='text'
+                            name='storyUser'
+                            value={storyPersona}
+                            onChange={({ target }) => setStoryPersona(target.value)}
+                            ref={inputElement}
+                            required />
+                    </div>
                 </div>
-                <div className='form__input-field'>
-                    <label>I want to</label>
-                    <input  className='user__input' type='text' name='storyWant' value={storyWant} onChange={event => setStoryWant(event.target.value)} required/>
+                <div className='row'>
+                    <div className='input-field col s12'>
+                        <label>I want to</label>
+                        <input
+                            type='text' name='storyWant'
+                            value={storyWant}
+                            onChange={({ target }) => setStoryWant(target.value)}
+                            required />
+                    </div>
                 </div>
-                <div className='form__input-field'>
-                    <label>so that</label>
-                    <input  className='user__input' type='text' name='storyValue' value={storyValue} onChange={event => setStoryValue(event.target.value)} required/>
+                <div className='row'>
+                    <div className='input-field col s12'>
+                        <label>so that</label>
+                        <input
+                            type='text' name='storyValue'
+                            value={storyValue}
+                            onChange={({ target }) => setStoryValue(target.value)}
+                            required />
+                    </div>
                 </div>
-                <input type='submit' value='Add userstory' className='button submit-userstory-button'/>
+                <div className='row'>
+                    <div className=' col s12'>
+                        <button
+                            type='submit'
+                            className=' button btn waves-effect waves-light green darken-1'>
+                            Add user story
+                </button>
+                    </div>
+                </div>
             </form>
 
         </div>
