@@ -15,7 +15,7 @@ export const createEpic = async (epic: EpicData) => {
 export const getEpic = (id: Epic['id']) => axios.get<Epic>(`${EPIC_URL}${id}`).then(response => response.data);
 
 export const deleteEpic = async (id: Epic['id']) => {
-    await axios.delete(EPIC_URL + id);
+    await axios.delete(`${EPIC_URL}${id}`);
     console.log('epic deleted');
 }
 
@@ -31,7 +31,7 @@ export const createStory = async (userstory: CreateUserstoryData) => {
 
 export const deleteStory = async (storyId: Userstory['id']) => {
     try {
-        const response = await axios.delete(`STORY_URL${storyId}`);
+        const response = await axios.delete(`${STORY_URL}${storyId}`);
         console.log('story deleted', response.data);
     } catch (error) {
         console.log('error occured', error);
