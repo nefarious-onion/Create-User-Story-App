@@ -8,11 +8,15 @@ interface TopnavProps {
 
 const Topnav: React.FunctionComponent<TopnavProps> = ({ title }) => {
     return (
-        <div className='topnav-container'>
-            <Link to='/' className='link'><h2 className='logo'>Create Userstories</h2></Link>
-            <h2 className='topnav-title'>{title}</h2>
-            <Link to='/' className='link'><h2>About app</h2></Link>
-        </div>
+        <nav>
+            <div className='nav-wrapper green darken-1'>
+                <Link to='/' className='brand-logo header-font'>CREATE USER STORIES</Link>
+                <ul className='right hide-on-med-and-down'>
+                    <li>{title}</li>
+                    <li> <Link to='/' className=''>About app</Link></li>
+                </ul>
+            </div>
+        </nav>
     );
 }
 
