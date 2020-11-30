@@ -1,19 +1,26 @@
 import React from 'react';
 import UserstoryItem from '../UserstoryItem/UserstoryItem';
-import './UserstoryList.css';
 import { Userstory } from '../../services/api.interface';
 
-interface UserstortyListProps  {
+interface UserstortyListProps {
     stories: Userstory[];
-    onStoryClick: (id: string) => void;
+    onStoryDelete: (id: string) => void;
 }
 
-const UserstoryList: React.FunctionComponent<UserstortyListProps> = ({ stories, onStoryClick }) => {
+const UserstoryList: React.FunctionComponent<UserstortyListProps> = ({
+    stories,
+    onStoryDelete
+}) => {
 
-    const storyList = stories.map(story => <UserstoryItem id={story.id} onStoryClick={onStoryClick} key={story.id} title={story.title} />)
+    const storyList = stories.map(story => <UserstoryItem
+        id={story.id}
+        key={story.id}
+        title={story.title}
+        onStoryDelete={onStoryDelete}
+    />)
 
     return (
-        <div className='list-container'>
+        <div className='collection'>
             {storyList}
         </div>
     );
