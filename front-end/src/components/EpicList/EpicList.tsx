@@ -8,10 +8,14 @@ interface EpicListProps {
 
 const EpicList: React.FunctionComponent<EpicListProps> = ({ epics }) => {
 
-    const epicList = epics.map(epic => <Link to={`/epic/${epic.id}`} className='list__item' key={epic.id}>{epic.title}</Link>)
+    const epicList = epics.map(epic => <Link
+        to={`/epic/${epic.id}`}
+        className='collection-item black-text'
+        key={epic.id}
+    >{epic.title}</Link>)
 
     return (
-        <div className='epiclist list-container'>
+        <div className='collection'>
             {epicList}
         </div>
 

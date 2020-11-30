@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Userstory } from '../../services/api.interface';
-import './CreateStoryForm.css';
 
 interface CreateStoryFormProps {
     onStoryCreate: (title: Userstory['title']) => void

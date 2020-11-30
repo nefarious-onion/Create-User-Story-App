@@ -72,7 +72,7 @@ const EpicView: React.FunctionComponent<EpicViewProps> = ({ onEpicLoad, onEpicDe
 
     return (
 
-        <div className='col s6 green lighten-5'>
+        <div className='col s6'>
             <div className='p-1'>
                 <button
                     className='mb-2 waves-effect waves-light btn red darken-1 '

@@ -19,13 +19,17 @@ const CreateEpicForm: React.FunctionComponent<CreateEpicFormProps> = ({ onEpicCr
     }
 
     return (
-        <div className='form-container'>
-            <form className='epic-form' onSubmit={onSubmit} >
+        <div className='row'>
+            <form className='col s12' onSubmit={onSubmit} >
                 <div className='input-field'>
-                    <input type='text' name='title' value={title} onChange={({ target }) => setTitle(target.value)} />
+                    <input
+                        type='text'
+                        name='title'
+                        value={title}
+                        onChange={({ target }) => setTitle(target.value)} />
                     <label htmlFor='title'>EPIC NAME</label>
                 </div>
-                <input type='submit' value='Add new Epic' className='button submit-epic-button' />
+                <button type='submit' className='waves-effect waves-light btn green darken-1'>Add new Epic </button>
             </form>
         </div>
     );
