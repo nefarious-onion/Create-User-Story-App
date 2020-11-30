@@ -18,7 +18,7 @@ import './App.css';
 const App = () => {
     const [epics, setEpics] = useState<Epic[]>([]);
     const [epicName, setEpicName] = useState('');
-    const [error, setError] = useState<Error | null >(null)
+    const [error, setError] = useState<Error | null>(null)
 
     const fetchEpics = async () => {
         try {
@@ -63,9 +63,9 @@ const App = () => {
 
     return (
         <Router>
-            <div className='app-container'>
+            <div className='container'>
                 <Topnav title={epicName} />
-                <div className='main-content'>
+                <div className='row'>
                     <Sidebar epics={epics} onEpicCreate={onEpicCreate} />
                     <Switch>
                         <Route path='/' exact >

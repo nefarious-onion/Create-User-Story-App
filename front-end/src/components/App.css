@@ -1,18 +1,32 @@
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
-.main-content {
-    display: flex;
+.header-font {
+    font-family: 'Roboto', sans-serif;
 }
 
-.button {
-    padding: 0.3em 1em;
-    border: 0.1em solid #000;
-    border-radius: 0.12em;
-    text-align: center;
-
+.input-field label {
+    color: #000;
 }
-.button:hover {
-    border: .3em solid #000;
+
+.input-field input[type=text]:focus+label {
+    color: #000;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+.p-1 {
+    padding: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.sidebar-container {
+    height: 100%;
 }
