@@ -30,8 +30,8 @@ router.post('/', async (req, res) => {
 })
 
 //update a userstory
-router.patch('/:story_id', async (req, res) => {
-    const id = req.params.story_id
+router.patch('/:id', async (req, res) => {
+    const id = req.params.id
     const { body } = req;
 
     const updatedStory = await userstoryService.patchStory(id, body);
@@ -39,8 +39,8 @@ router.patch('/:story_id', async (req, res) => {
 })
 
 //delete userstory
-router.delete('/:story_id', async (req, res) => {
-    const id = req.params.story_id;
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
     await userstoryService.deleteStory(id);
     res
         .status(204)
