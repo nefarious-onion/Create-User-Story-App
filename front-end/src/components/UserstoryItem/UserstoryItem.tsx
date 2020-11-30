@@ -1,22 +1,26 @@
 import React from 'react';
-import './Userstory.css';
 
 interface UserstoryProps {
     title: string;
     id: string;
-    onStoryClick: (id: string) => void;
+    onStoryDelete: (id: string) => void;
 }
 
-const UserstoryItem: React.FunctionComponent<UserstoryProps> = ({ title, onStoryClick, id }) => {
+const UserstoryItem: React.FunctionComponent<UserstoryProps> = ({
+    title,
+    id,
+    onStoryDelete
+}) => {
 
     return (
-        <div className='list__item' onClick={() => {
-            console.log(id);
-            onStoryClick(id);
-        }
-        }>
-            <p>{title}</p>
-        </div>
+        <div className='collection-item'>
+            <span>{title}</span>
+            <div
+                className='secondary-content'
+                onClick={(event: React.MouseEvent<HTMLElement>) => onStoryDelete(id)}>
+                <i className="material-icons red-text">clear</i>
+            </div>
+        </div >
     );
 }
 
