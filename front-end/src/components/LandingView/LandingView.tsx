@@ -8,9 +8,10 @@ interface LandingviewProps {
 
 const LandingView: React.FunctionComponent<LandingviewProps> = ({ onEpicCreate }) => {
     return (
-        <div className='landingview-container'>
-            <h1>Welcome to Create User Stories App!</h1>
-            <p>Start by creating a new epic or choose an existing one from the sidebar</p>
+        <div className='col s6'>
+            <h2 className='header-font'>WELCOME TO CREATE USER STORIES APP</h2>
+            <p>Start by creating a new epic or choose an existing one from the sidebar.</p>
+            <p>In the future, you will be able to export the list of user stories and save them to your computer or to your favourite team amanagement application</p>
             <CreateEpicForm onEpicCreate={onEpicCreate} />
         </div>
     );
