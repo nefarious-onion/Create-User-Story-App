@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl } from '../config';
+import { baseUrl } from './config';
 import { EpicData, Epic, Userstory } from '../services/api.interface';
 const EPIC_URL = `${baseUrl}/epic/`;
 const STORY_URL = `${baseUrl}/userstory/`;
