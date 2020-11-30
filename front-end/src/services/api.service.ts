@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { baseUrl } from '../config';
 import { EpicData, Epic, Userstory } from '../services/api.interface';
-const EPIC_URL = `${baseUrl}api/epic/`;
-const STORY_URL = `${baseUrl}api/userstory/`;
+const EPIC_URL = `${baseUrl}/epic/`;
+const STORY_URL = `${baseUrl}/userstory/`;
 
 export const getEpics = () => axios.get<Epic[]>(EPIC_URL).then(response => response.data);
 
@@ -30,8 +30,14 @@ export const createStory = async (userstory: CreateUserstoryData) => {
 }
 
 export const deleteStory = async (storyId: Userstory['id']) => {
-    const response = await axios.delete(`STORY_URL${storyId}`);
-    console.log('story deleted', response.data);
+    try {
+        const response = await axios.delete(`STORY_URL${storyId}`);
+        console.log('story deleted', response.data);
+    } catch (error) {
+        console.log('error occured', error);
+
+    }
+
 }
 
 export const getStory = async (storyId: Userstory['id']) => {
