@@ -3,9 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getEpic, createStory, getStory, deleteStory } from '../../services/api.service';
 import UserstoryList from '../UserstoryList/UserstoryList';
 import CreateStoryForm from '../CreateStoryForm/CreateStoryForm';
-import EditStoryView from '../EditStoryView/EditStoryView';
-import './EpicView.css';
-import { Epic, Userstory, UserstoryData } from '../../services/api.interface';
+import { Epic, Userstory } from '../../services/api.interface';
 
 interface EpicViewProps {
     onEpicLoad: (epic: Epic) => void;
@@ -19,9 +17,7 @@ const EpicView: React.FunctionComponent<EpicViewProps> = ({ onEpicLoad, onEpicDe
     const [epic, setEpic] = useState<Epic | null>(null);
     const [stories, setStories] = useState<Userstory[]>([]);
     const [epicTitle, setEpicTitle] = useState('');
-    const [editVisible, setEditVisible] = useState(false);
     const [storyId, setStoryId] = useState<Userstory['id']>('');
-    const [story, setStory] = useState<Userstory | null>(null);
     const [error, setError] = useState<Error | null>(null)
 
     //! Olisko epicTitle parempi hanskata joko useEffectillä tai ottaa se tosta samasta datasta ku kaikki muukin?
@@ -43,20 +39,12 @@ const EpicView: React.FunctionComponent<EpicViewProps> = ({ onEpicLoad, onEpicDe
             fetchStories();
         } catch (error) {
             setError(error)
-        }      
+        }
     }
 
-    const onStoryClick = async (id: Userstory['id']) => {
-        setEditVisible(true);
-        setStoryId(id);
-    }
-
-    const onStoryDelete = async () => {
+    const onStoryDelete = async (storyId: string) => {
         try {
             await deleteStory(storyId);
-            setStoryId('');
-            setStory(null);
-            setEditVisible(false);
             fetchStories();
         } catch (error) {
             setError(error)
@@ -79,32 +67,22 @@ const EpicView: React.FunctionComponent<EpicViewProps> = ({ onEpicLoad, onEpicDe
             onEpicLoad(epic);
             setStoryId('');
         })
-        .catch(error => setError(error))
+            .catch(error => setError(error))
     }, [epicId]);
-
-    useEffect(() => {
-        getStory(storyId)
-            .then(userstory => {
-                setStory(userstory);
-            })
-        .catch(error => setError(error))
-    }, [ storyId ]);
 
     return (
 
-        <div className='epicview-container'>
-            <div className='userstoryview-container'>
-                <button className='button delete-button' onClick={onDeleteClick} >Delete epic {epicTitle}</button>
+        <div className='col s6 green lighten-5'>
+            <div className='p-1'>
+                <button
+                    className='mb-2 waves-effect waves-light btn red darken-1 '
+                    onClick={onDeleteClick} >Delete epic {epicTitle}
+                </button>
                 <CreateStoryForm onStoryCreate={onStoryCreate} />
-                <UserstoryList stories={stories} onStoryClick={onStoryClick} />
-            </div>
-            <div className='editview-container'>
-                {
-                    story && (
-                        <EditStoryView story={story} onStoryDelete={onStoryDelete} />
-                    )
-                }
-                {/* <EditStoryView editVisible={editVisible} storyId={storyId} epicId={epicId} onStoryDelete={onStoryDelete} /> */}
+                <UserstoryList
+                    stories={stories}
+                    onStoryDelete={onStoryDelete}
+                />
             </div>
         </div >
     );
