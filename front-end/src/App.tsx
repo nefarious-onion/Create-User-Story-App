@@ -14,9 +14,6 @@ import EpicView from './views/Epicview/EpicView';
 import SideNav from './components/SideNav/SideNav';
 import Topnav from './components/Topnav/Topnav';
 import Notification, { NotificationObj } from './components/Notification/Notification';
-//styles
-import './App.css';
-
 
 const App = () => {
     const [epics, setEpics] = useState<Epic[]>([]);
