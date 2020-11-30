@@ -55,7 +55,7 @@ const EpicView: React.FunctionComponent<EpicViewProps> = ({
             showNotification({ type: 'error', message: error.message })
         }
     }
-    const handleDelete = () => {
+    const handleEpicDelete = () => {
         if (window.confirm('Are you sure you want to delete this epic?')) {
             onEpicDelete(epicId);
             setEpic(null);
@@ -82,7 +82,7 @@ const EpicView: React.FunctionComponent<EpicViewProps> = ({
             <div className='p-1'>
                 <button
                     className='mb-2 waves-effect waves-light btn red darken-1 '
-                    onClick={handleDelete}
+                    onClick={handleEpicDelete}
                 >
                     Delete epic {epicTitle}
                 </button>
