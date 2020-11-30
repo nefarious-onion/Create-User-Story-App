@@ -1,7 +1,6 @@
 import React from 'react';
 import CreateEpicForm from '../CreateEpicForm/CreateEpicForm';
 import { EpicData } from '../../services/api.interface';
-import './LandingView.css';
 
 interface LandingviewProps {
     onEpicCreate: (title: EpicData['title']) => void
