@@ -1,5 +1,5 @@
 import express from 'express';
-const router = express.Router({ mergeParams: true });
+const router = express.Router();
 import userstoryService from './userstory.service';
 
 //get all userstories
